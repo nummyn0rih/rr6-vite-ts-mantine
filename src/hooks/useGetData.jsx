@@ -54,7 +54,7 @@ export default function useGetData(url, pageNumber) {
         if (axios.isCancel(e)) {
           return;
         }
-        setError(false);
+        setError(true);
         console.error(e);
       });
 

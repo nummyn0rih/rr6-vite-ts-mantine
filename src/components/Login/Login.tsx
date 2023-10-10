@@ -1,6 +1,6 @@
 import { useNavigate } from 'react-router-dom';
-import { Group, Button } from '@mantine/core';
 import { useAuth } from '../../context/AuthProvider';
+import { Group, Button } from '@mantine/core';
 import classes from './Login.module.css';
 
 export function Login() {

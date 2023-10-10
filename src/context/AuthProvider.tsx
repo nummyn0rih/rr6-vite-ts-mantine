@@ -25,7 +25,7 @@ export default function AuthProvider({ children }) {
     cb();
   };
 
-  const signin = (user, cb) => {
+  const signin = (user, resolve, reject) => {
     setIsError(false);
 
     const hash = localStorage.getItem(user.username);
@@ -34,9 +34,10 @@ export default function AuthProvider({ children }) {
     if (isRegistered) {
       localStorage.setItem('user', user.username);
       setCurrentUser(user.username);
-      cb();
+      resolve();
     } else {
       setIsError(true);
+      reject();
     }
   };
 

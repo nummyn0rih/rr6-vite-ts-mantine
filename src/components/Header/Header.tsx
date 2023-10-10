@@ -1,5 +1,5 @@
 import { useState } from 'react';
-import { useNavigate } from 'react-router-dom';
+import { NavLink } from 'react-router-dom';
 
 import { Container, Group, Burger, Button, UnstyledButton, Image } from '@mantine/core';
 import { useDisclosure } from '@mantine/hooks';
@@ -19,20 +19,16 @@ const links = [
 export function Header() {
   const [opened, { toggle }] = useDisclosure(false);
   const [active, setActive] = useState(links[0].link);
-  const navigate = useNavigate();
 
   const items = links.map((link) => (
     <UnstyledButton key={link.label}>
       <Button
-        component="a"
+        component={NavLink}
+        to={link.link}
         className={classes.link}
         data-active={active === link.link || undefined}
         leftSection={link.icon}
-        onClick={(event) => {
-          event.preventDefault();
-          setActive(link.link);
-          navigate(link.link)
-        }}
+        onClick={() => setActive(link.link)}
       >
         {link.label}
       </Button>

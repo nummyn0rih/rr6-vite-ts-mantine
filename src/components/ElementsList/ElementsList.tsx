@@ -1,10 +1,13 @@
 import { useCallback, useRef, useState } from 'react';
 import { useNavigate } from 'react-router-dom';
+
 import useGetData from '../../hooks/useGetData';
 import getUrl from '../../utils/getUrl';
-import { Button, Container, Group, Stack, List } from '@mantine/core';
 
-export function ElementsList(params: Object) {
+import { Button, Container, Center, Group, Stack, List, Paper, Loader } from '@mantine/core';
+import classes from './ElementsList.module.css';
+
+export function ElementsList(params) {
   const navigate = useNavigate();
   const [pageNumber, setPageNumber] = useState(1);
 
@@ -17,7 +20,6 @@ export function ElementsList(params: Object) {
   );
 
   const observer = useRef();
-  // eslint-disable-next-line react-hooks/exhaustive-deps
   const lastNodeRef = useCallback((node) => {
     if (loading) return;
     if (observer.current) {
@@ -45,29 +47,42 @@ export function ElementsList(params: Object) {
 
   return (
     <Container>
-      <Group>
-        <span>Упорядочить по дате: </span>
-        <Button size="xs" onClick={handleClickSort('ASC')}>По возрастанию</Button>
-        <Button size="xs" onClick={handleClickSort('DESC')}>По убыванию</Button>
-      </Group>
-      <Stack>
-        <List
-          type="ordered"
-          size="xl"
-          spacing="xs"
-        >
-          {elements.map((elem, index) => {
-            if (elements.length - 3 === index + 1) {
-              return <List.Item key={elem.id} ref={lastNodeRef}>{elem.name}</List.Item>
-            } else {
-              return <List.Item key={elem.id} onClick={handleClick(elem.id)}>{elem.name}</List.Item>
-            }
-          })}
-        </List>
-        
-        {loading && <div className='elem-loading'>Загрузка ...</div>}
-        {error && <div className='elem-error'>Ошибка</div>}
-      </Stack>
+      <Center>
+        <Group>
+          <span>Упорядочить по дате: </span>
+          <Button size="xs" variant="outline" onClick={handleClickSort('ASC')}>По возрастанию</Button>
+          <Button size="xs" variant="outline" onClick={handleClickSort('DESC')}>По убыванию</Button>
+        </Group>
+      </Center>
+      <Center mt={10}>
+        <Stack maw={600}>
+          <List
+            className={classes.list}
+            type="ordered"
+            size="xl"
+            spacing="xs"
+          >
+            {elements.map((elem, index) => {
+              if (elements.length - 3 === index + 1) {
+                return (
+                  <Paper key={elem.id} className={classes.item} shadow="sm" withBorder p="sm" mt={8}>
+                    <List.Item ref={lastNodeRef}>{elem.name}</List.Item>
+                  </Paper>
+                );
+              } else {
+                return (
+                  <Paper key={elem.id} className={classes.item} shadow="sm" withBorder p="sm" mt={8}>
+                    <List.Item onClick={handleClick(elem.id)}>{elem.name}</List.Item>
+                  </Paper>
+                );
+              }
+            })}
+          </List>
+          
+          {loading && <Loader size={50} />}
+          {error && <div>Ошибка</div>}
+        </Stack>
+      </Center>
     </Container>
   );
 }

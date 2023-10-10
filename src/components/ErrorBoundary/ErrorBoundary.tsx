@@ -1,5 +1,6 @@
 import { Component } from 'react';
 import PropTypes from 'prop-types';
+import { ServerError } from '..';
 
 export class ErrorBoundary extends Component {
   constructor(props) {
@@ -23,7 +24,7 @@ export class ErrorBoundary extends Component {
 
   render() {
     if (this.state.hasError) {
-      <h4>Что-то пошло не так!</h4>;
+      <ServerError/>
     }
 
     return this.props.children;

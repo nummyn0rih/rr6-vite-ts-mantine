@@ -1,5 +1,6 @@
 import { useForm } from '@mantine/form';
 import { TextInput, PasswordInput, Button, Group, Box } from '@mantine/core';
+import { Link } from 'react-router-dom';
 
 export function FormSignin({ handler }) {
   const form = useForm({
@@ -26,8 +27,8 @@ export function FormSignin({ handler }) {
 
         <Group justify="center" mt="xl">
           <Button type="submit">Войти</Button>
-          <Button variant="outline" onClick={() => form.reset()}>
-            Reset to initial values
+          <Button variant="subtle" component={Link} to="/registration">
+            Регистрация
           </Button>
         </Group>
       </form>

@@ -1,12 +1,7 @@
-import { lazy } from 'react';
 import { useLocation, useNavigate } from 'react-router-dom';
 import { Container, Paper } from '@mantine/core';
 import { FormSignup } from '../components';
 import { useAuth } from '../context/AuthProvider';
-
-const ErrorBoundary = lazy(() => import('../components/ErrorBoundary').then((module) => ({
-  default: module.ErrorBoundary,
-})));
 
 export default function Registration() {
   const { signup } = useAuth();

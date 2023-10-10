@@ -1,29 +1,22 @@
-import { lazy, ReactElement } from 'react';
+import { lazy } from 'react';
 import { createBrowserRouter, RouterProvider } from 'react-router-dom';
 import { MainLayout } from './layouts/MainLayout';
-import { PrivatRoute } from './components/PrivatRoute';
+import { PrivatRoute } from './components/PrivatRoute/PrivatRoute';
 
 const Home = lazy(() => import('./pages/Home.page'));
-const Characters = lazy(() => import('./pages/CharacterList'));
-const Character = lazy(() => import('./pages/Character'));
-const Locations = lazy(() => import('./pages/LocationList'));
-const Location = lazy(() => import('./pages/Location'));
-const Episodes = lazy(() => import('./pages/EpisodeList'));
-const Episode = lazy(() => import('./pages/Episode'));
-const LoginPage = lazy(() => import('./pages/LoginPage'));
-const Registration = lazy(() => import('./pages/Registration'));
-const ErrorPage = lazy(() => import('./pages/ErrorPage'));
-
-// interface IRoutes {
-//   path: string,
-//   element: ReactElement
-// }
+const Characters = lazy(() => import('./pages/Characters.page'));
+const Locations = lazy(() => import('./pages/Locations.page'));
+const Episodes = lazy(() => import('./pages/Episodes.page'));
+const Card = lazy(() => import('./pages/Card.page'));
+const Login = lazy(() => import('./pages/Login.page'));
+const Registration = lazy(() => import('./pages/Registration.page'));
+const Error = lazy(() => import('./pages/Error.page'));
 
 const router = createBrowserRouter([
   {
     path: '/',
     element: <MainLayout />,
-    errorElement: <ErrorPage />,
+    errorElement: <Error />,
     children: [
       {
         path: '/',
@@ -38,7 +31,7 @@ const router = createBrowserRouter([
           },
           {
             path: 'characters/:id',
-            element: <Character />,
+            element: <Card type='characters' />,
           },
           {
             path: 'locations',
@@ -46,7 +39,7 @@ const router = createBrowserRouter([
           },
           {
             path: 'locations/:id',
-            element: <Location />,
+            element: <Card type='locations' />,
           },
           {
             path: 'episodes',
@@ -54,13 +47,13 @@ const router = createBrowserRouter([
           },
           {
             path: 'episodes/:id',
-            element: <Episode />,
+            element: <Card type='episodes' />,
           },
         ],
       },
       {
         path: 'login',
-        element: <LoginPage />,
+        element: <Login />,
       },
       {
         path: 'registration',

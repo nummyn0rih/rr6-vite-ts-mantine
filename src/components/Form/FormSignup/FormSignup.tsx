@@ -37,9 +37,6 @@ export function FormSignup({ handler }) {
 
         <Group justify="center" mt="xl">
           <Button type="submit">Отправить</Button>
-          <Button variant="outline" onClick={() => form.reset()}>
-            Reset to initial values
-          </Button>
         </Group>
       </form>
     </Box>

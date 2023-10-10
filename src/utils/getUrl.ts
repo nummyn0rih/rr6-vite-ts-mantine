@@ -1,4 +1,4 @@
-export default function getUrl(name) {
+export default function getUrl(name: string): string {
   const urls = {
     characters: 'https://rickandmortyapi.com/api/character',
     locations: 'https://rickandmortyapi.com/api/location',

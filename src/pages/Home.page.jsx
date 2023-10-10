@@ -1,12 +1,5 @@
 import { Container, Title } from "@mantine/core";
 
-// @font-face {
-//   font-family: "RalewayRegular"; 
-//   src: url("../fonts/RalewayRegular.ttf") format("truetype"); 
-//   font-style: normal; 
-//   font-weight: normal; 
-// } 
-
 export default function Home() {
   return (
     <Container>

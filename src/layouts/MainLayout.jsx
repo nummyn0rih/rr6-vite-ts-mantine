@@ -1,5 +1,6 @@
 import { Suspense, lazy } from 'react';
 import { Outlet } from 'react-router-dom';
+import { Container } from '@mantine/core';
 import { Header } from '../components';
 
 const ErrorBoundary = lazy(() => import('../components').then((module) => ({
@@ -8,13 +9,13 @@ const ErrorBoundary = lazy(() => import('../components').then((module) => ({
 
 export function MainLayout() {
   return (
-    <>
+    <Container>
       <Header/>
       <ErrorBoundary>
-        <Suspense fallback={<div>Загрузка ...</div>}>
+        <Suspense>
           <Outlet />
         </Suspense>
       </ErrorBoundary>
-    </>
+    </Container>
   );
 }

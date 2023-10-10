@@ -1,6 +1,6 @@
 import { Navigate, Outlet, useLocation } from 'react-router-dom';
 import PropTypes from 'prop-types';
-import { useAuth } from '../context/AuthProvider';
+import { useAuth } from '../../context/AuthProvider';
 
 export function PrivatRoute({ children }) {
   const { currentUser } = useAuth();
