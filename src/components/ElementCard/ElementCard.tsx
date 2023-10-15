@@ -1,6 +1,20 @@
 import { Center, Card, Image, Title, Divider, Text, Group, Stack } from '@mantine/core';
 
-export function ElementCard({ element }) {
+type Props = {
+  element: {
+    name: string
+    type: string
+    image?: string
+    status?: string
+    species?: string
+    gender?: string
+    air_date?: string
+    episode?: string
+    dimension?: string
+  }
+};
+
+export function ElementCard({ element }: Props) {
   return (
     <Center mt={10}>
       <Card

@@ -1,10 +1,10 @@
 import { useNavigate } from 'react-router-dom';
-import { useAuth } from '../../context/AuthProvider';
+import { useAuth, AuthContextType } from '../../context/AuthProvider';
 import { Group, Button } from '@mantine/core';
 import classes from './Login.module.css';
 
 export function Login() {
-  const { currentUser, signout } = useAuth();
+  const { currentUser, signout } = useAuth() as AuthContextType;
   const navigate = useNavigate();
 
   const handleSignOut = () => {

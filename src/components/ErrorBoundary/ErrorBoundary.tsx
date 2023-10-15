@@ -1,9 +1,15 @@
-import { Component } from 'react';
-import PropTypes from 'prop-types';
+import { Component, ReactNode, ErrorInfo } from 'react';
 import { ServerError } from '..';
 
-export class ErrorBoundary extends Component {
-  constructor(props) {
+type MyProps = {
+  children: ReactNode;
+};
+type MyState = {
+  hasError: boolean;
+};
+
+export class ErrorBoundary extends Component<MyProps, MyState> {
+  constructor(props: MyProps) {
     super(props);
 
     this.state = {
@@ -17,7 +23,7 @@ export class ErrorBoundary extends Component {
     };
   }
 
-  componentDidCatch(error, errorInfo) {
+  componentDidCatch(error: Error, errorInfo: ErrorInfo): void {
     console.log(error);
     console.log(errorInfo);
   }
@@ -30,11 +36,3 @@ export class ErrorBoundary extends Component {
     return this.props.children;
   }
 }
-
-ErrorBoundary.propTypes = {
-  children: PropTypes.oneOfType([
-    PropTypes.array,
-    PropTypes.object,
-    PropTypes.elementType
-  ])
-};

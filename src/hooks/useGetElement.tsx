@@ -1,10 +1,15 @@
 import { useEffect, useState } from 'react';
 import axios from 'axios';
+import { Element } from '../types';
 
-export default function useGetElement(url) {
+export default function useGetElement(url: string): {
+  loading: boolean
+  error: boolean
+  element: Element
+} {
   const [loading, setLoading] = useState(true);
   const [error, setError] = useState(false);
-  const [element, setElement] = useState({});
+  const [element, setElement] = useState({} as Element);
 
   useEffect(() => {
     setLoading(true);

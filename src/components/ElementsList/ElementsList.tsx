@@ -1,13 +1,13 @@
-import { useCallback, useRef, useState } from 'react';
+import { useCallback, useRef, Ref, useState } from 'react';
 import { useNavigate } from 'react-router-dom';
 
-import useGetData from '../../hooks/useGetData';
+import { useGetData, Direction } from '../../hooks/useGetData';
 import getUrl from '../../utils/getUrl';
 
 import { Button, Container, Center, Group, Stack, List, Paper, Loader } from '@mantine/core';
 import classes from './ElementsList.module.css';
 
-export function ElementsList(params) {
+export function ElementsList(params: { name: string }) {
   const navigate = useNavigate();
   const [pageNumber, setPageNumber] = useState(1);
 
@@ -19,8 +19,8 @@ export function ElementsList(params) {
     pageNumber
   );
 
-  const observer = useRef();
-  const lastNodeRef = useCallback((node) => {
+  const observer = useRef<IntersectionObserver | null>();
+  const lastNodeRef = useCallback((node: HTMLLIElement) => {
     if (loading) return;
     if (observer.current) {
       observer.current.disconnect();
@@ -37,11 +37,11 @@ export function ElementsList(params) {
     }
   }, [hasMore, loading]);
 
-  const handleClickSort = (order) => () => {
+  const handleClickSort = (order: Direction) => () => {
     sort(order);
   };
 
-  const handleClick = (id) => () => {
+  const handleClick = (id: number) => () => {
     navigate(`/${component}/${id}`);
   };
 
@@ -66,7 +66,7 @@ export function ElementsList(params) {
               if (elements.length - 3 === index + 1) {
                 return (
                   <Paper key={elem.id} className={classes.item} shadow="sm" withBorder p="sm" mt={8}>
-                    <List.Item ref={lastNodeRef}>{elem.name}</List.Item>
+                    <List.Item ref={lastNodeRef as Ref<HTMLLIElement>}>{elem.name}</List.Item>
                   </Paper>
                 );
               } else {

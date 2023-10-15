@@ -1,13 +1,14 @@
+import { ReactNode } from 'react';
 import { useLocation, useNavigate } from 'react-router-dom';
-import { useAuth } from '../context/AuthProvider';
+import { useAuth, AuthContextType } from '../context/AuthProvider';
 import { Container, Paper } from '@mantine/core';
 import { FormSignin } from '../components';
 
 import { notifications } from '@mantine/notifications';
 import classes from './Login.page.module.css';
 
-export default function LoginPage() {
-  const { isError, signin } = useAuth();
+export default function LoginPage(): ReactNode {
+  const { signin } = useAuth() as AuthContextType;
   const navigate = useNavigate();
   const location = useLocation();
 
@@ -23,10 +24,10 @@ export default function LoginPage() {
     })
   };
 
-  const onSubmit = (inputs) => {
+  const onSubmit = ({username, password }: {username: string, password: string}) => {
     const user = {
-      username: inputs.username,
-      password: inputs.password,
+      username: username,
+      password: password,
     };
     
     signin(user, () => {

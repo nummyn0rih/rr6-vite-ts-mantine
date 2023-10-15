@@ -19,6 +19,6 @@
     "noUnusedParameters": true,
     "noFallthroughCasesInSwitch": true
   },
-  "include": ["src"],
+  "include": ["src", "serviceWorker.ts"],
   "references": [{ "path": "./tsconfig.node.json" }]
 }

@@ -1,7 +1,12 @@
 import { useForm } from '@mantine/form';
 import { TextInput, PasswordInput, Button, Group, Box } from '@mantine/core';
+import { Inputs } from '../../../types';
 
-export function FormSignup({ handler }) {
+type Props = {
+  handler: (inputs: Inputs) => void
+};
+
+export function FormSignup({ handler }: Props) {
   const form = useForm({
     initialValues: {
       username: '',

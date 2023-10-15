@@ -1,6 +1,7 @@
+import { ReactNode } from 'react';
 import { Container, Title } from "@mantine/core";
 
-export default function Home() {
+export default function Home(): ReactNode {
   return (
     <Container>
       <Title order={1}>

@@ -1,9 +1,13 @@
+import { ReactNode } from 'react';
 import { Navigate, Outlet, useLocation } from 'react-router-dom';
-import PropTypes from 'prop-types';
-import { useAuth } from '../../context/AuthProvider';
+import { useAuth, AuthContextType } from '../../context/AuthProvider';
 
-export function PrivatRoute({ children }) {
-  const { currentUser } = useAuth();
+type Props = {
+  children?: ReactNode
+};
+
+export function PrivatRoute({ children }: Props): ReactNode {
+  const { currentUser } = useAuth() as AuthContextType;
   const location = useLocation();
 
   if (currentUser === null) {
@@ -12,10 +16,3 @@ export function PrivatRoute({ children }) {
 
   return children ? children : <Outlet />;
 }
-
-PrivatRoute.propTypes = {
-  children: PropTypes.oneOfType([
-    PropTypes.arrayOf(PropTypes.elementType),
-    PropTypes.elementType
-  ])
-};

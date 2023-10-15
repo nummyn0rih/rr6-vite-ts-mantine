@@ -1,19 +1,32 @@
 <!DOCTYPE html>
-<html lang="en">
+<html lang="ru">
   <head>
     <meta charset="UTF-8" />
-    <link rel="icon" type="image/svg+xml" href="/favicon.svg" />
+    <link rel="icon" type="image/svg+xml" href="/icon-72x72.png" />
     <meta
       name="viewport"
       content="minimum-scale=1, initial-scale=1, width=device-width, user-scalable=no"
     />
+    <meta name="theme-color" content="#1976d2"/>
     <style>
       html {
         margin-right: calc(-1 * (100vw - 100%));
         overflow-x: hidden;
       }
     </style>
-    <title>Vite + React + rr6 + TS + Mantine</title>
+    <link rel="manifest" href="./src/manifest.json">
+    <link rel="apple-touch-icon" href="/assets/icons/icon-192x192.png">
+    <link rel="apple-mobile-web-app-status-bar" content="#1976d2">
+    <script>
+      if('serviceWorker' in navigator) {
+        window.addEventListener('load', () => {
+          navigator.serviceWorker.register('/serviceWorker.ts')
+            .then((reg) => console.log('Service Worker registered', reg))
+            .catch((err) => console.log('Service Worker not registered', err))
+        })
+      }
+    </script>
+    <title>Rick and Morty Wiki</title>
   </head>
   <body>
     <div id="root"></div>

@@ -1,7 +1,7 @@
 import { lazy } from 'react';
 import { createBrowserRouter, RouterProvider } from 'react-router-dom';
 import { MainLayout } from './layouts/MainLayout';
-import { PrivatRoute } from './components/PrivatRoute/PrivatRoute';
+import { PrivatRoute } from './components/PrivatRoute';
 
 const Home = lazy(() => import('./pages/Home.page'));
 const Characters = lazy(() => import('./pages/Characters.page'));

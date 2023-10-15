@@ -1,8 +1,13 @@
 import { useForm } from '@mantine/form';
 import { TextInput, PasswordInput, Button, Group, Box } from '@mantine/core';
 import { Link } from 'react-router-dom';
+import { Inputs } from '../../../types';
 
-export function FormSignin({ handler }) {
+type Props = {
+  handler: (inputs: Inputs) => void
+};
+
+export function FormSignin({ handler }: Props) {
   const form = useForm({
     initialValues: {
       username: '',

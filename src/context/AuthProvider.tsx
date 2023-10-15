@@ -1,20 +1,34 @@
-import { createContext, useContext, useState } from 'react';
+import { ReactNode, createContext, useContext, useState } from 'react';
 import bcrypt from 'bcryptjs-react';
 
-const AuthContext = createContext(null);
+export interface AuthContextType {
+  currentUser: string | null
+  isError: boolean
+  signup: (newUser: User, cb: () => void) => void
+  signin: (user: User, resolve: () => void, reject: () => void) => void
+  signout: (cb: () => void) => void
+}
+
+const AuthContext = createContext<AuthContextType | null>(null);
 
 // eslint-disable-next-line react-refresh/only-export-components
 export function useAuth() {
   return useContext(AuthContext);
 }
 
-export default function AuthProvider({ children }) {
+type Props = {
+  children: ReactNode;
+};
+
+type User = { username: string; password: string }
+
+export default function AuthProvider({ children }: Props) {
   const [currentUser, setCurrentUser] = useState(
     () => localStorage.getItem('user') || null
   );
   const [isError, setIsError] = useState(false);
 
-  const signup = (newUser, cb) => {
+  const signup = (newUser: User, cb: () => void): void => {
     setIsError(false);
     setCurrentUser(newUser.username);
 
@@ -25,7 +39,7 @@ export default function AuthProvider({ children }) {
     cb();
   };
 
-  const signin = (user, resolve, reject) => {
+  const signin = (user: User, resolve: () => void, reject: () => void): void => {
     setIsError(false);
 
     const hash = localStorage.getItem(user.username);
@@ -41,7 +55,7 @@ export default function AuthProvider({ children }) {
     }
   };
 
-  const signout = (cb) => {
+  const signout = (cb: () => void): void => {
     setCurrentUser(null);
     localStorage.removeItem('user');
     cb();

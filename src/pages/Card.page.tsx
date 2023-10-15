@@ -1,4 +1,4 @@
-import { lazy } from 'react';
+import { ReactNode, lazy } from 'react';
 import { useParams } from 'react-router-dom';
 
 import useGetElement from '../hooks/useGetElement';
@@ -11,9 +11,13 @@ const ErrorBoundary = lazy(() => import('../components').then((module) => ({
   default: module.ErrorBoundary,
 })));
 
-export default function Card(props) {
+type Props = {
+  type: string;
+};
+
+export default function Card({ type }: Props): ReactNode {
   const { id } = useParams();
-  const url = `${getUrl(props.type)}/${id}`;
+  const url = `${getUrl(type)}/${id}`;
 
   const { loading, error, element } = useGetElement(url);
 

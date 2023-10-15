@@ -1,7 +1,11 @@
 import { useEffect, useState } from 'react';
 import axios from 'axios';
+import { Element } from '../types';
 
-const asc = (a, b) => {
+type SortArg = number | string
+type SortFunc = (a: SortArg, b: SortArg) => number
+
+const asc: SortFunc = (a, b) => {
   if (a > b) {
     return 1;
   }
@@ -12,7 +16,7 @@ const asc = (a, b) => {
   return 0;
 };
 
-const desc = (a, b) => {
+const desc: SortFunc = (a, b) => {
   if (a > b) {
     return -1;
   }
@@ -23,21 +27,37 @@ const desc = (a, b) => {
   return 0;
 };
 
-const sortFuncs = {
+export type Direction = 'ASC' | 'DESC'
+
+interface SortDirection {
+  ASC: SortFunc
+  DESC: SortFunc
+}
+
+const sortFuncs: SortDirection = {
   ASC: asc,
   DESC: desc,
 };
 
-export default function useGetData(url, pageNumber) {
+interface GetDataType {
+  loading: boolean
+  error: boolean
+  elements: Element[]
+  hasMore: boolean
+  sort: (order: Direction) => void
+}
+
+export function useGetData(url: string, pageNumber?: number): GetDataType {
   const [loading, setLoading] = useState(true);
   const [error, setError] = useState(false);
-  const [elements, setElements] = useState([]);
+  const [elements, setElements] = useState([] as Element[]);
   const [hasMore, setHasMore] = useState(false);
 
   useEffect(() => {
     setLoading(true);
     setError(false);
-    let cancel;
+    // eslint-disable-next-line @typescript-eslint/ban-types
+    let cancel: Function;
 
     axios({
       method: 'GET',
@@ -61,10 +81,11 @@ export default function useGetData(url, pageNumber) {
     return () => cancel();
   }, [url, pageNumber]);
 
-  const sort = (order) => {
-    const newList = elements.sort((a, b) =>
-      sortFuncs[order](a.created, b.created)
-    );
+  const sort = (order: Direction): void => {
+    const newList = elements.sort((a, b) => {
+      const func = sortFuncs[order];
+      return func(a.created, b.created)
+    });
 
     setElements([...newList]);
   };
