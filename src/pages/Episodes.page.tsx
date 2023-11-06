@@ -10,7 +10,7 @@ const ErrorBoundary = lazy(() => import('../components').then((module) => ({
 export default function Episodes(): ReactNode {
   return (
     <ErrorBoundary>
-      <ElementsList name='episodes' />;
+      <ElementsList name='episodes' />
     </ErrorBoundary>
   );
 }
