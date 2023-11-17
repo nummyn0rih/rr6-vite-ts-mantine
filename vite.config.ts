@@ -7,14 +7,21 @@ export default defineConfig({
   plugins: [
     react(),
     VitePWA({
-      injectRegister: 'auto',
+      injectRegister: 'inline',
+      strategies: 'injectManifest',
+      srcDir: '/',
+      filename: 'sw.js',
+      workbox: {
+        globPatterns: ['**/*.{js,css,html,ico,png,svg}'],
+      },
       manifest: {
         "name": "Rick and Morty Wiki",
         "short_name": "Rick&Morty",
-        "theme_color": "#1976d2",
+        "description": "Rick and Morty Wiki",
+        "theme_color": "#66cdaa",
         "background_color": "#fafafa",
         "display": "standalone",
-        "start_url": "/index.html",
+        "start_url": "/",
         "orientation": "portrait-primary",
         "icons": [
           {

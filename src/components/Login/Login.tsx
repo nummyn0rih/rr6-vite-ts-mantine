@@ -16,7 +16,7 @@ export function Login() {
   return (
     <>
       {currentUser === null ? (
-        <Group gap={5} visibleFrom="xs">
+        <Group gap={5}>
           <Button
             className={classes.button}
             size="xs"

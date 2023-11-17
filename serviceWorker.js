@@ -1,4 +1,4 @@
-// import {createLogger} from "vite";
+// import { createLogger } from 'vite';
 
 const staticCacheName = 'static-site';
 const dynamicCacheName = 'dynamic-site';
